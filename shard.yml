@@ -8,6 +8,11 @@ targets:
   crystal-demo:
     main: src/crystal-demo.cr
 
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+    branch: master
+
 crystal: 0.21.1
 
 license: MIT
