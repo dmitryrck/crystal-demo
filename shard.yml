@@ -9,6 +9,9 @@ targets:
     main: src/crystal-demo.cr
 
 dependencies:
+  spec-kemal:
+    github: kemalcr/spec-kemal
+    branch: master
   kemal:
     github: kemalcr/kemal
     branch: master
