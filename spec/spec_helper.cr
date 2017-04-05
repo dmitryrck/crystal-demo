@@ -1,3 +1,3 @@
 require "spec"
 require "spec-kemal"
-require "../src/crystal-demo"
+require "../src/crystal_demo"

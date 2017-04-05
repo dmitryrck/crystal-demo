@@ -1,12 +1,12 @@
-name: crystal-demo
+name: crystal_demo
 version: 0.1.0
 
 authors:
   - Dmitry Rocha <dmitryrck@gmail.com>
 
 targets:
-  crystal-demo:
-    main: src/crystal-demo.cr
+  crystal_demo:
+    main: src/crystal_demo.cr
 
 dependencies:
   spec-kemal:
