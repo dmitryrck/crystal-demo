@@ -1,5 +1,13 @@
 version: 1.0
 shards:
+  crecto:
+    github: fridgerator/crecto
+    version: 0.5.0
+
+  db:
+    github: crystal-lang/crystal-db
+    version: 0.4.0
+
   kemal:
     github: kemalcr/kemal
     commit: 48128696c6130e76fcf29529f630a0d7c3cd813b
@@ -7,6 +15,14 @@ shards:
   kilt:
     github: jeromegn/kilt
     version: 0.3.3
+
+  micrate:
+    github: juanedi/micrate
+    version: 0.3.0
+
+  pg:
+    github: will/crystal-pg
+    version: 0.13.3
 
   radix:
     github: luislavena/radix

@@ -15,6 +15,12 @@ dependencies:
   kemal:
     github: kemalcr/kemal
     branch: master
+  pg:
+    github: will/crystal-pg
+  crecto:
+    github: fridgerator/crecto
+  micrate:
+    github: juanedi/micrate
 
 crystal: 0.21.1
 
