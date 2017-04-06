@@ -20,4 +20,4 @@ create table title(
 -- +micrate Down
 -- SQL section 'Down' is executed when this migration is rolled back
 
-drop table title();
+drop table title;
