@@ -10,9 +10,43 @@ TODO: Write installation instructions here
 
 TODO: Write usage instructions here
 
+## Database
+
+This project uses [IMDB database](http://www.imdb.com/interfaces). It does not
+import from list files.
+
+To import IMDB database we recommend [IMDbPy](http://imdbpy.sourceforge.net/).
+
+*Warning*: This software and the authors have no rights to give you any
+permission to use IMDB data.
+
 ## Development
 
-TODO: Write development instructions here
+To run:
+
+    % DATABASE_URL=postgres://postgres@localhost:5432/imdb crystal ./src/crystal_demo.cr
+
+## Production
+
+Build an optimized release with:
+
+    % crystal build --release ./src/crystal_demo.cr -o bin/app
+
+Copy the binary to server and run your app:
+
+    % DATABASE_URL=postgres://postgres@localhost:5432/imdb ./app
+
+## Tests
+
+This project uses IMDB database, in order to run the tests you have to migrate
+the test database:
+
+    % createdb imdb_test
+    % DATABASE_URL=postgres://postgres@localhost:5432/imdb_test ./bin/migrate up
+
+And run the test suite with:
+
+    % DATABASE_URL=postgres://postgres@localhost:5432/imdb_test crystal spec
 
 ## Contributing
 

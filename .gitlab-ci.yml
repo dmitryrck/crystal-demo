@@ -1,0 +1,23 @@
+image: crystallang/crystal
+
+services:
+  - postgres:latest
+
+cache:
+  key: crystal-demo
+  paths:
+    - .shards
+    - lib
+
+variables:
+  KEMAL_ENV: "test"
+  POSTGRES_DB: "imdb_test"
+  DATABASE_URL: "postgresql://postgres@postgres/imdb_test"
+
+before_script:
+  - crystal deps
+  - ./bin/migrate up
+
+test:
+  script:
+    - crystal spec
