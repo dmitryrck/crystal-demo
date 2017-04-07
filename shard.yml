@@ -21,6 +21,8 @@ dependencies:
     github: fridgerator/crecto
   micrate:
     github: juanedi/micrate
+  kemal-auth-token:
+    github: akwiatkowski/kemal-auth-token
 
 crystal: 0.21.1
 

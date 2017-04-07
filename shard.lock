@@ -8,9 +8,17 @@ shards:
     github: crystal-lang/crystal-db
     version: 0.4.0
 
+  jwt:
+    github: akwiatkowski/crystal-jwt
+    commit: f0bf2608dc6a38362c686cb47b2f52a67672c495
+
   kemal:
     github: kemalcr/kemal
-    commit: 48128696c6130e76fcf29529f630a0d7c3cd813b
+    commit: 0b4856b7417592743a27fc3e30867fd141395bf6
+
+  kemal-auth-token:
+    github: akwiatkowski/kemal-auth-token
+    commit: 4ce8d1c23ac90f7feea3cdda9ba2483d2cf029a3
 
   kilt:
     github: jeromegn/kilt

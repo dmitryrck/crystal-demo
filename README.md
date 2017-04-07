@@ -6,10 +6,6 @@ TODO: Write a description here
 
 TODO: Write installation instructions here
 
-## Usage
-
-TODO: Write usage instructions here
-
 ## Database
 
 This project uses [IMDB database](http://www.imdb.com/interfaces). It does not
@@ -19,6 +15,78 @@ To import IMDB database we recommend [IMDbPy](http://imdbpy.sourceforge.net/).
 
 *Warning*: This software and the authors have no rights to give you any
 permission to use IMDB data.
+
+## Usage
+
+In order not to change the schema of the database the auth is managed by the
+table `name` using just `id` and `md5sum` to match a user.
+
+This way if you are importing the list files from IMDB you already have 6064219
+users.
+
+Get your user, for example:
+
+    postgres@pgsrv:/$ psql imdb
+    psql (9.6.2)
+    Type "help" for help.
+
+    imdb=# select id,md5sum from name limit 1;
+     id  |              md5sum
+    -----+----------------------------------
+     719 | cf45e7b42fbc800c61462988ad1156d2
+    (1 row)
+
+    imdb=#
+
+Get your token:
+
+    % curl -H "Accept: application/json" --data "email=719&password=cf45e7b42fbc800c61462988ad1156d2" -X POST http://localhost:3000/sign_in
+    HTTP/1.1 200 OK
+    Connection: keep-alive
+    X-Powered-By: Kemal
+    Content-Type: text/html
+    Content-Length: 166
+
+    {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjcxOSIsImlkIjo3MTl9.DrXWakACn8JETKhMd8iZE4ljk4v3EgscvwsCc3WqACU="}
+
+If you use a wrong match of `id` and `md5sum`:
+
+    % curl -i --data "email=719&password=2e2a05345c6f5e31c735831246a39c51" -X POST http://localhost:3000/sign_in
+    HTTP/1.1 403 Forbidden
+    Connection: keep-alive
+    X-Powered-By: Kemal
+    Content-Type: text/html
+    Content-Length: 59
+
+    {"error" => true, "message" => "Your id and md5sum does not match"}
+
+And the next requests:
+
+    % curl -i -H "X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzE5LCJtZDVzdW0iOiJjZjQ1ZTdiNDJmYmM4MDBjNjE0NjI5ODhhZDExNTZkMiJ9.k-qUCpMA7wR1C17Tw0gI9TZ4HZfXOSOQD0sJbOhY_pw=" "http://localhost:3000/titles?page=100"
+    HTTP/1.1 200 OK
+    Connection: keep-alive
+    X-Powered-By: Kemal
+    Content-Type: text/html
+    Content-Length: 839
+
+    [{"id":4218231,"title":"Tony Robinson and...","kind_type":{"name":"tv series","id":2}},{"id":4218230,"title":"Wonders of the Universe","kind_type":{"name":"tv series","id":2}},{"id":4218229,"title":"(1955-11-01)","kind_type":{"name":"episode","id":7}},{"id":4218228,"title":"(1954-11-01)","kind_type":{"name":"episode","id":7}},{"id":4218227,"title":"Yagyu bugeicho - Ninjitsu","kind_type":{"name":"movie","id":1}},{"id":4218226,"title":"Why Dunblane?","kind_type":{"name":"episode","id":7}},{"id":4218225,"title":"The Siege of Kontum","kind_type":{"name":"episode","id":7}},{"id":4218224,"title":"The Quiet Mutiny","kind_type":{"name":"episode","id":7}},{"id":4218223,"title":"The Man Who Stole Uganda","kind_type":{"name":"episode","id":7}},{"id":4218222,"title":"The Life and Death of Steve Biko","kind_type":{"name":"episode","id":7}}]
+
+If you don't provide your token:
+
+    %  curl "http://localhost:3000/titles"
+    HTTP/1.1 403 Forbidden
+    Connection: keep-alive
+    X-Powered-By: Kemal
+    Content-Type: text/html
+    Content-Length: 35
+
+    {"error":403,"message":"Forbidden"}
+
+## List of endpoints
+
+* `POST /sign_in`, params: `email` (required) and `password` (required);
+* `GET /current_user`;
+* `GET /titles`, params: `page` (optional);
 
 ## Development
 
