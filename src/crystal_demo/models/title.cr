@@ -6,6 +6,8 @@ module CrystalDemo
       field :production_year, Int32
 
       belongs_to :kind_type, KindType, foreign_key: :kind_id
+
+      has_many :cast_infos, CastInfo, foreign_key: :movie_id
     end
 
     def to_hash : Hash
