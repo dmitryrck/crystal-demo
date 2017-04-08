@@ -1,4 +1,4 @@
-# crystal_demo
+# CrystalDemo
 
 TODO: Write a description here
 
@@ -102,7 +102,36 @@ Build an optimized release with:
 
 Copy the binary to server and run your app:
 
-    % DATABASE_URL=postgres://postgres@localhost:5432/imdb ./app
+    % DATABASE_URL=postgres://postgres@localhost:5432/imdb PORT=80 ./app
+
+## Heroku
+
+Use the following commands to create an app in heroku with Crystal's buildpack:
+
+    % heroku login
+    % heroku create --buildpack https://github.com/crystal-lang/heroku-buildpack-crystal.git
+    % heroku addons:create heroku-postgresql:hobby-dev
+    % git push heroku master
+
+You have to import IMDB database to heroku as well, but if you are just
+testing follow the instructions bellow to create a minimal database with
+minimal data:
+
+1. Run migrations:
+
+    % DATABASE_URL=postgres://user:pass@ec2-66-66-66-66.compute-1.amazonaws.com:5432/db123kd6i30pac ./bin/migrate up
+
+2. Connect to database to insert initial data:
+
+    % psql "postgres://user:pass@ec2-66-66-66-66.compute-1.amazonaws.com:5432/db123kd6i30pac"
+    psql (9.6.1, server 9.6.2)
+    SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
+    Type "help" for help.
+
+    db522kd6i30pac=> insert into name (name, md5sum) values ('John', 'cf45e7b42fbc800c61462988ad1156d2');
+    INSERT 0 1
+
+Now everthing is ready in Heroku.
 
 ## Tests
 
