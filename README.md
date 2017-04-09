@@ -40,29 +40,29 @@ Get your user, for example:
 
 Get your token:
 
-    % curl -H "Accept: application/json" --data "email=719&password=cf45e7b42fbc800c61462988ad1156d2" -X POST http://localhost:3000/sign_in
+    %  curl -i --data "email=719&password=cf45e7b42fbc800c61462988ad1156d2" -X POST "http://localhost:3000/sign_in"
     HTTP/1.1 200 OK
     Connection: keep-alive
     X-Powered-By: Kemal
     Content-Type: text/html
     Content-Length: 166
 
-    {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6IjcxOSIsImlkIjo3MTl9.DrXWakACn8JETKhMd8iZE4ljk4v3EgscvwsCc3WqACU="}
+    {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzE5LCJtZDVzdW0iOiJjZjQ1ZTdiNDJmYmM4MDBjNjE0NjI5ODhhZDExNTZkMiJ9.k-qUCpMA7wR1C17Tw0gI9TZ4HZfXOSOQD0sJbOhY_pw="}
 
 If you use a wrong match of `id` and `md5sum`:
 
-    % curl -i --data "email=719&password=2e2a05345c6f5e31c735831246a39c51" -X POST http://localhost:3000/sign_in
+    %  curl -i --data "email=1&password=cf45e7b42fbc800c61462988ad1156d2" -X POST "http://localhost:3000/sign_in"
     HTTP/1.1 403 Forbidden
     Connection: keep-alive
     X-Powered-By: Kemal
     Content-Type: text/html
     Content-Length: 59
 
-    {"error" => true, "message" => "Your id and md5sum does not match"}
+    {"error":400,"message":"Your id and md5sum does not match"}
 
 And the next requests:
 
-    % curl -i -H "X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzE5LCJtZDVzdW0iOiJjZjQ1ZTdiNDJmYmM4MDBjNjE0NjI5ODhhZDExNTZkMiJ9.k-qUCpMA7wR1C17Tw0gI9TZ4HZfXOSOQD0sJbOhY_pw=" "http://localhost:3000/titles?page=100"
+    %  curl -i -H "X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzE5LCJtZDVzdW0iOiJjZjQ1ZTdiNDJmYmM4MDBjNjE0NjI5ODhhZDExNTZkMiJ9.k-qUCpMA7wR1C17Tw0gI9TZ4HZfXOSOQD0sJbOhY_pw=" "http://localhost:3000/titles?page=100"
     HTTP/1.1 200 OK
     Connection: keep-alive
     X-Powered-By: Kemal
@@ -73,7 +73,7 @@ And the next requests:
 
 If you don't provide your token:
 
-    %  curl "http://localhost:3000/titles"
+    %  curl -i "http://localhost:3000/titles?page=100"
     HTTP/1.1 403 Forbidden
     Connection: keep-alive
     X-Powered-By: Kemal
