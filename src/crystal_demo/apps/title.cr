@@ -16,5 +16,26 @@ module CrystalDemo
       titles = Repo.all(Title, query)
       (titles.as(Array).map &.to_hash).to_json
     end
+
+    post "/titles" do |env|
+      title = Title.from_json(env.params.json.to_json)
+      changeset = CrystalDemo::Title.changeset(title)
+      title = CrystalDemo::Repo.insert(changeset)
+      title.instance.to_json
+    end
+
+    put "/titles/:id" do |env|
+      title = Repo.get(Title, env.params.url["id"])
+
+      if title
+        title.from_json(env.params.json.to_json)
+        title = CrystalDemo::Repo.update(title)
+        title.instance.to_json
+      else
+        message = { "error" => 404, "message" => "Not Found" }
+
+        halt env, status_code: 404, response: message.to_json
+      end
+    end
   end
 end

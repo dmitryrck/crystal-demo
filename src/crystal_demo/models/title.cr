@@ -13,6 +13,25 @@ module CrystalDemo
       updated_at_field nil
     end
 
+    def from_json(json : String)
+      parsed = JSON.parse(json)
+      keys = parsed.as_h.keys
+
+      self.tap do |title|
+        if keys.includes?("title")
+          title.title = parsed["title"].to_s
+        end
+
+        if keys.includes?("production_year")
+          title.production_year = parsed["production_year"].as_i
+        end
+
+        if keys.includes?("kind_id")
+          title.kind_id = parsed["kind_id"].as_i
+        end
+      end
+    end
+
     def to_hash : Hash
       { "id" => id, "title" => title, "kind_type" => kind_type_hash }
     end
