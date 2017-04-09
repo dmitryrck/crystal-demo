@@ -12,9 +12,7 @@ create table title(
   season_nr integer,
   episode_nr integer,
   series_years character varying(49),
-  md5sum character varying(32),
-  created_at timestamp,
-  updated_at timestamp
+  md5sum character varying(32)
 );
 
 -- +micrate Down

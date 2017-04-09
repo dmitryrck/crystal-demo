@@ -9,9 +9,7 @@ create table name(
   name_pcode_cf character varying(5),
   name_pcode_nf character varying(5),
   surname_pcode character varying(5),
-  md5sum character varying(32),
-  created_at timestamp,
-  updated_at timestamp
+  md5sum character varying(32)
 );
 
 -- +micrate Down
