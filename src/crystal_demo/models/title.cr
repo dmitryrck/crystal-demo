@@ -8,6 +8,9 @@ module CrystalDemo
       belongs_to :kind_type, KindType, foreign_key: :kind_id
 
       has_many :cast_infos, CastInfo, foreign_key: :movie_id
+
+      created_at_field nil
+      updated_at_field nil
     end
 
     def to_hash : Hash
