@@ -23,6 +23,10 @@ Kemal.config.add_handler(auth_token_mw)
 
 module CrystalDemo
   before_all do |env|
+    env.response.content_type = "application/json"
+  end
+
+  before_all do |env|
     if env.request.path != "/sign_in" && env.current_user.empty?
       message = { "error" => 403, "message" => "Forbidden" }
 

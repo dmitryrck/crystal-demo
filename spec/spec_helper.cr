@@ -7,7 +7,7 @@ require "../src/crystal_demo"
 
 Spec.before_each do
   db = DB.open(ENV["DATABASE_URL"])
-  db.exec("truncate title")
+  db.exec("truncate title, name")
 end
 
 def token(name = CrystalDemo::Name, secret_key = nil)

@@ -14,7 +14,7 @@ shards:
 
   kemal:
     github: kemalcr/kemal
-    commit: 0b4856b7417592743a27fc3e30867fd141395bf6
+    version: 0.18.3
 
   kemal-auth-token:
     github: akwiatkowski/kemal-auth-token
@@ -38,5 +38,5 @@ shards:
 
   spec-kemal:
     github: kemalcr/spec-kemal
-    commit: 05cc810f5f5ed890f16bcb06461000b97c625959
+    version: 0.4.0
 
