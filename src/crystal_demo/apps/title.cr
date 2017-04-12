@@ -20,8 +20,19 @@ module CrystalDemo
     post "/titles" do |env|
       title = Title.from_json(env.params.json.to_json)
       changeset = CrystalDemo::Title.changeset(title)
-      title = CrystalDemo::Repo.insert(changeset)
-      title.instance.to_json
+
+      if changeset.valid?
+        title = CrystalDemo::Repo.insert(changeset)
+        title.instance.to_json
+      else
+        message = {
+          "error" => 406,
+          "message" => "Invalid",
+          "errors" => changeset.errors
+        }
+
+        halt env, status_code: 406, response: message.to_json
+      end
     end
 
     put "/titles/:id" do |env|
@@ -29,8 +40,19 @@ module CrystalDemo
 
       if title
         title.from_json(env.params.json.to_json)
-        title = CrystalDemo::Repo.update(title)
-        title.instance.to_json
+        changeset = CrystalDemo::Title.changeset(title)
+        if changeset.valid?
+          title = CrystalDemo::Repo.update(title)
+          title.instance.to_json
+        else
+          message = {
+            "error" => 406,
+            "message" => "Invalid",
+            "errors" => changeset.errors
+          }
+
+          halt env, status_code: 406, response: message.to_json
+        end
       else
         message = { "error" => 404, "message" => "Not Found" }
 

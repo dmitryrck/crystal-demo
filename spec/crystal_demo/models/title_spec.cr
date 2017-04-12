@@ -1,6 +1,51 @@
 require "../../spec_helper"
 
 describe CrystalDemo::Title do
+  context "validations" do
+    it "should be valid" do
+      title = CrystalDemo::Title.new
+      title.title = "Ghost in the shell"
+      title.kind_id = 1
+      title.production_year = 2017
+
+      CrystalDemo::Title.changeset(title).valid?.should be_true
+    end
+
+    it "should not be valid without production_year" do
+      title = CrystalDemo::Title.new
+      title.title = "Ghost in the shell"
+      title.kind_id = 1
+
+      CrystalDemo::Title.changeset(title).valid?.should_not be_true
+    end
+
+    it "should not be valid without title" do
+      title = CrystalDemo::Title.new
+      title.kind_id = 1
+      title.production_year = 2017
+
+      CrystalDemo::Title.changeset(title).valid?.should_not be_true
+    end
+
+    it "should not be valid with an empty title" do
+      title = CrystalDemo::Title.new
+      title.title = ""
+      title.kind_id = 1
+      title.production_year = 2017
+
+      CrystalDemo::Title.changeset(title).valid?.should_not be_true
+    end
+
+    # The validation above only exists in database
+    pending "should not be valid without kind_id" do
+      title = CrystalDemo::Title.new
+      title.title = "Ghost in the shell"
+      title.production_year = 2017
+
+      CrystalDemo::Title.changeset(title).valid?.should_not be_true
+    end
+  end
+
   context "#to_hash" do
     it "should always return a hash" do
       CrystalDemo::Title.new.to_hash.is_a?(Hash).should be_true

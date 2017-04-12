@@ -82,11 +82,27 @@ If you don't provide your token:
 
     {"error":403,"message":"Forbidden"}
 
+`POST create`:
+
+    curl -i --data '{"title":"Ghost","kind_id":1,"production_year":2007}' -H "Content-Type: application/json" -H "X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibWQ1c3VtIjoiY2Y0NWU3YjQyZmJjODAwYzYxNDYyOTg4YWQxMTU2ZDIifQ==.xAlbER2GqdKdf4m-f4NiV2YJwA9le2zEO3gzo4SrHCI=" "http://localhost:3000/titles"
+    HTTP/1.1 200 OK
+    Connection: keep-alive
+    X-Powered-By: Kemal
+    Content-Type: application/json
+    Content-Length: 60
+
+    {"title":"Ghost","kind_id":1,"production_year":2007,"id":93}
+
+
 ## List of endpoints
 
 * `POST /sign_in`, params: `email` (required) and `password` (required);
 * `GET /current_user`;
 * `GET /titles`, params: `page` (optional);
+* `POST /titles`, content type: "application/json, params: `title` (required),
+`kind_id` (required), `production_year` (required);
+* `PUT /titles/:id`, content type: "application/json, params: `id` (required),
+`title` (required), `kind_id` (required), `production_year` (required);
 
 ## Development
 

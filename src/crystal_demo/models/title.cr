@@ -11,6 +11,10 @@ module CrystalDemo
 
       created_at_field nil
       updated_at_field nil
+
+      # Only title and kind_id are required (aka `not null`) in database too.
+      validate_required [:title, :production_year]
+      validate_length :title, min: 3
     end
 
     def from_json(json : String)

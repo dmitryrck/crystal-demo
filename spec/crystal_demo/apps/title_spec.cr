@@ -33,7 +33,20 @@ describe CrystalDemo::TitleApp do
         json["id"].should_not be_nil
       end
 
-      pending "should not create" do
+      it "should not create" do
+        name = CrystalDemo::Name.new
+        name.name = "John"
+        name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
+        changeset = CrystalDemo::Name.changeset(name)
+        name = CrystalDemo::Repo.insert(changeset)
+
+        headers = HTTP::Headers{"X-Token" => token(name), "Content-Type" => "application/json"}
+        body = { "production_year": 2017, "kind_id": 1 }
+
+        post "/titles", headers: headers, body: body.to_json
+
+        response.status_code.should eq 406
+        response.body.should eq %({"error":406,"message":"Invalid","errors":[{"field":"title","message":"is required"}]})
       end
     end
 
@@ -72,7 +85,31 @@ describe CrystalDemo::TitleApp do
         title.production_year.should eq 1995
       end
 
-      pending "should not update" do
+      it "should not update" do
+        kind_type = CrystalDemo::KindType.new
+        kind_type.kind = "episode"
+        kind_type = CrystalDemo::KindType.changeset(kind_type)
+        kind_type = CrystalDemo::Repo.insert(kind_type)
+
+        title = CrystalDemo::Title.new
+        title.title = "Passengers"
+        title.kind_id = kind_type.instance.id
+        title.production_year = 2016
+        changeset = CrystalDemo::Title.changeset(title)
+        title = CrystalDemo::Repo.insert(changeset)
+
+        name = CrystalDemo::Name.new
+        name.name = "John"
+        name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
+        changeset = CrystalDemo::Name.changeset(name)
+        name = CrystalDemo::Repo.insert(changeset)
+
+        headers = HTTP::Headers{"X-Token" => token(name), "Content-Type" => "application/json"}
+        body = { "title": "", "production_year": 1995 }
+
+        put "/titles/#{title.instance.id}", headers: headers, body: body.to_json
+
+        response.body.should eq %({"error":406,"message":"Invalid","errors":[{"field":"title","message":"is invalid"}]})
       end
     end
 
