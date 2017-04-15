@@ -24,10 +24,19 @@ services:
     <<: *test
     environment:
       - DATABASE_URL=postgresql://postgres@db/imdb
-      - PORT=3000
+      - PORT=4000
     ports:
-      - "3000:3000"
+      - "4000:4000"
     command: "crystal run ./src/crystal_demo.cr"
+
+  prod:
+    <<: *test
+    environment:
+      - DATABASE_URL=postgresql://postgres@db/imdb
+      - PORT=4001
+    ports:
+      - "4001:4001"
+    command: bash -c "crystal build --release -s src/crystal_demo.cr -o bin/app && ./bin/app"
 
   heroku:
     build:
