@@ -16,11 +16,10 @@ describe CrystalDemo do
         name.name = "John"
         name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
         changeset = CrystalDemo::Name.changeset(name)
-        name = CrystalDemo::Repo.insert(changeset)
-        headers = HTTP::Headers.new
-        headers["X-Token"] = token(name, "not key")
+        CrystalDemo::Repo.insert(changeset)
+        headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d3"}
 
-        get "/current_user"
+        get "/current_user", headers
 
         response.body.should eq %({"error":403,"message":"Forbidden"})
       end
@@ -32,9 +31,8 @@ describe CrystalDemo do
         name.name = "John"
         name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
         changeset = CrystalDemo::Name.changeset(name)
-        name = CrystalDemo::Repo.insert(changeset)
-        headers = HTTP::Headers.new
-        headers["X-Token"] = token(name)
+        CrystalDemo::Repo.insert(changeset)
+        headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
         get "/current_user", headers: headers
 
@@ -47,8 +45,7 @@ describe CrystalDemo do
         name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
         changeset = CrystalDemo::Name.changeset(name)
         name = CrystalDemo::Repo.insert(changeset)
-        headers = HTTP::Headers.new
-        headers["X-Token"] = token(name)
+        headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
         get "/current_user", headers: headers
 
@@ -61,8 +58,7 @@ describe CrystalDemo do
         name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
         changeset = CrystalDemo::Name.changeset(name)
         name = CrystalDemo::Repo.insert(changeset)
-        headers = HTTP::Headers.new
-        headers["X-Token"] = token(name)
+        headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
         get "/current_user", headers: headers
 

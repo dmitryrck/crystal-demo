@@ -2,23 +2,15 @@ version: 1.0
 shards:
   crecto:
     github: fridgerator/crecto
-    version: 0.5.0
+    version: 0.5.1
 
   db:
     github: crystal-lang/crystal-db
-    version: 0.4.0
-
-  jwt:
-    github: akwiatkowski/crystal-jwt
-    commit: f0bf2608dc6a38362c686cb47b2f52a67672c495
+    version: 0.4.1
 
   kemal:
     github: kemalcr/kemal
     version: 0.18.3
-
-  kemal-auth-token:
-    github: akwiatkowski/kemal-auth-token
-    commit: 4ce8d1c23ac90f7feea3cdda9ba2483d2cf029a3
 
   kilt:
     github: jeromegn/kilt
