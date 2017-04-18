@@ -19,7 +19,7 @@ permission to use IMDB data.
 ## Usage
 
 In order not to change the schema of the database the auth is managed by the
-table `name` using just `id` and `md5sum` to match a user.
+table `name` using just `md5sum` to match a user.
 
 This way if you are importing the list files from IMDB you already have 6064219
 users.
@@ -38,31 +38,9 @@ Get your user, for example:
 
     imdb=#
 
-Get your token:
-
-    %  curl -i --data "email=719&password=cf45e7b42fbc800c61462988ad1156d2" -X POST "http://localhost:3000/sign_in"
-    HTTP/1.1 200 OK
-    Connection: keep-alive
-    X-Powered-By: Kemal
-    Content-Type: text/html
-    Content-Length: 166
-
-    {"token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzE5LCJtZDVzdW0iOiJjZjQ1ZTdiNDJmYmM4MDBjNjE0NjI5ODhhZDExNTZkMiJ9.k-qUCpMA7wR1C17Tw0gI9TZ4HZfXOSOQD0sJbOhY_pw="}
-
-If you use a wrong match of `id` and `md5sum`:
-
-    %  curl -i --data "email=1&password=cf45e7b42fbc800c61462988ad1156d2" -X POST "http://localhost:3000/sign_in"
-    HTTP/1.1 403 Forbidden
-    Connection: keep-alive
-    X-Powered-By: Kemal
-    Content-Type: text/html
-    Content-Length: 59
-
-    {"error":400,"message":"Your id and md5sum does not match"}
-
 And the next requests:
 
-    %  curl -i -H "X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6NzE5LCJtZDVzdW0iOiJjZjQ1ZTdiNDJmYmM4MDBjNjE0NjI5ODhhZDExNTZkMiJ9.k-qUCpMA7wR1C17Tw0gI9TZ4HZfXOSOQD0sJbOhY_pw=" "http://localhost:3000/titles?page=100"
+    %  curl -i -H "Authorization: Token token:cf45e7b42fbc800c61462988ad1156d2" "http://localhost:3000/titles?page=100"
     HTTP/1.1 200 OK
     Connection: keep-alive
     X-Powered-By: Kemal
@@ -84,7 +62,7 @@ If you don't provide your token:
 
 `POST create`:
 
-    curl -i --data '{"title":"Ghost","kind_id":1,"production_year":2007}' -H "Content-Type: application/json" -H "X-Token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibWQ1c3VtIjoiY2Y0NWU3YjQyZmJjODAwYzYxNDYyOTg4YWQxMTU2ZDIifQ==.xAlbER2GqdKdf4m-f4NiV2YJwA9le2zEO3gzo4SrHCI=" "http://localhost:3000/titles"
+    curl -i --data '{"title":"Ghost","kind_id":1,"production_year":2007}' -H "Content-Type: application/json" -H "Authorization: Token token:cf45e7b42fbc800c61462988ad1156d2" "http://localhost:3000/titles"
     HTTP/1.1 200 OK
     Connection: keep-alive
     X-Powered-By: Kemal
@@ -96,7 +74,6 @@ If you don't provide your token:
 
 ## List of endpoints
 
-* `POST /sign_in`, params: `email` (required) and `password` (required);
 * `GET /current_user`;
 * `GET /titles`, params: `page` (optional);
 * `POST /titles`, content type: "application/json, params: `title` (required),
@@ -106,7 +83,7 @@ If you don't provide your token:
 
 ## Development
 
-To run:
+Run:
 
     % DATABASE_URL=postgres://postgres@localhost:5432/imdb crystal ./src/crystal_demo.cr
 

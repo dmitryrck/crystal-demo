@@ -20,7 +20,7 @@ describe CrystalDemo::TitleApp do
         changeset = CrystalDemo::Name.changeset(name)
         name = CrystalDemo::Repo.insert(changeset)
 
-        headers = HTTP::Headers{"X-Token" => token(name), "Content-Type" => "application/json"}
+        headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2", "Content-Type" => "application/json"}
         body = { "title": "Ghost in the shell", "production_year": 2017, "kind_id": 1 }
 
         post "/titles", headers: headers, body: body.to_json
@@ -40,7 +40,7 @@ describe CrystalDemo::TitleApp do
         changeset = CrystalDemo::Name.changeset(name)
         name = CrystalDemo::Repo.insert(changeset)
 
-        headers = HTTP::Headers{"X-Token" => token(name), "Content-Type" => "application/json"}
+        headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2" , "Content-Type" => "application/json"}
         body = { "production_year": 2017, "kind_id": 1 }
 
         post "/titles", headers: headers, body: body.to_json
@@ -70,7 +70,7 @@ describe CrystalDemo::TitleApp do
         changeset = CrystalDemo::Name.changeset(name)
         name = CrystalDemo::Repo.insert(changeset)
 
-        headers = HTTP::Headers{"X-Token" => token(name), "Content-Type" => "application/json"}
+        headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2", "Content-Type" => "application/json"}
         body = { "title": "Ghost in the shell (Anime)", "production_year": 1995 }
 
         put "/titles/#{title.instance.id}", headers: headers, body: body.to_json
@@ -104,7 +104,7 @@ describe CrystalDemo::TitleApp do
         changeset = CrystalDemo::Name.changeset(name)
         name = CrystalDemo::Repo.insert(changeset)
 
-        headers = HTTP::Headers{"X-Token" => token(name), "Content-Type" => "application/json"}
+        headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2", "Content-Type" => "application/json"}
         body = { "title": "", "production_year": 1995 }
 
         put "/titles/#{title.instance.id}", headers: headers, body: body.to_json
@@ -121,8 +121,7 @@ describe CrystalDemo::TitleApp do
           name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
           changeset = CrystalDemo::Name.changeset(name)
           name = CrystalDemo::Repo.insert(changeset)
-          headers = HTTP::Headers.new
-          headers["X-Token"] = token(name)
+          headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
           get "/titles", headers: headers
 
@@ -149,8 +148,7 @@ describe CrystalDemo::TitleApp do
           name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
           changeset = CrystalDemo::Name.changeset(name)
           name = CrystalDemo::Repo.insert(changeset)
-          headers = HTTP::Headers.new
-          headers["X-Token"] = token(name)
+          headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
           get "/titles", headers: headers
 
@@ -175,8 +173,7 @@ describe CrystalDemo::TitleApp do
           name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
           changeset = CrystalDemo::Name.changeset(name)
           name = CrystalDemo::Repo.insert(changeset)
-          headers = HTTP::Headers.new
-          headers["X-Token"] = token(name)
+          headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
           get "/titles", headers: headers
 
@@ -210,8 +207,7 @@ describe CrystalDemo::TitleApp do
             name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
             changeset = CrystalDemo::Name.changeset(name)
             name = CrystalDemo::Repo.insert(changeset)
-            headers = HTTP::Headers.new
-            headers["X-Token"] = token(name)
+            headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
             get "/titles", headers: headers
 
@@ -243,8 +239,7 @@ describe CrystalDemo::TitleApp do
             name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
             changeset = CrystalDemo::Name.changeset(name)
             name = CrystalDemo::Repo.insert(changeset)
-            headers = HTTP::Headers.new
-            headers["X-Token"] = token(name)
+            headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
             get "/titles?page=1", headers: headers
 
@@ -277,8 +272,7 @@ describe CrystalDemo::TitleApp do
           name.md5sum = "cf45e7b42fbc800c61462988ad1156d2"
           changeset = CrystalDemo::Name.changeset(name)
           name = CrystalDemo::Repo.insert(changeset)
-          headers = HTTP::Headers.new
-          headers["X-Token"] = token(name)
+          headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
           get "/titles?page=2", headers: headers
 
