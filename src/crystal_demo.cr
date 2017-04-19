@@ -1,6 +1,4 @@
 require "kemal"
-require "kemal-auth-token/kemal-auth"
-require "./kemal-auth-token-monkey-patch"
 
 require "pg"
 require "crecto"
@@ -9,8 +7,6 @@ require "./crystal_demo/models/*"
 require "./crystal_demo/apps/*"
 
 require "./crystal_demo/*"
-
-ENV["SECRET_KEY"] ||= "secret key"
 
 module CrystalDemo
   extend CrystalDemo::Auth
