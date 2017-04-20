@@ -10,7 +10,7 @@ module CrystalDemo
     end
 
     def to_hash : Hash
-      { "name" =>  kind, "id" => id }
+      { "id" => id, "name" =>  kind }
     end
   end
 end

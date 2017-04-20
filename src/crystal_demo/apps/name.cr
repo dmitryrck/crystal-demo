@@ -1,6 +1,6 @@
 module CrystalDemo
-  module TitleApp
-    get "/titles" do |env|
+  module NameApp
+    get "/names" do |env|
       page = if env.params.query["page"]?
                env.params.query["page"][0].to_i - 1
              else
@@ -11,19 +11,18 @@ module CrystalDemo
         .limit(10)
         .offset(page * 10)
         .order_by("id desc")
-        .preload(:kind_type)
 
-      titles = Repo.all(Title, query)
-      (titles.as(Array).map &.to_hash).to_json
+      names = Repo.all(Name, query)
+      (names.as(Array).map &.to_hash).to_json
     end
 
-    post "/titles" do |env|
-      title = Title.from_json(env.params.json.to_json)
-      changeset = CrystalDemo::Title.changeset(title)
+    post "/names" do |env|
+      name = Name.from_json(env.params.json.to_json)
+      changeset = CrystalDemo::Name.changeset(name)
 
       if changeset.valid?
-        title = CrystalDemo::Repo.insert(changeset)
-        title.instance.to_json
+        name = CrystalDemo::Repo.insert(changeset)
+        name.instance.to_json
       else
         message = {
           "error" => 406,
@@ -35,15 +34,15 @@ module CrystalDemo
       end
     end
 
-    put "/titles/:id" do |env|
-      title = Repo.get(Title, env.params.url["id"])
+    put "/names/:id" do |env|
+      name = Repo.get(Name, env.params.url["id"])
 
-      if title
-        title.from_json(env.params.json.to_json)
-        changeset = CrystalDemo::Title.changeset(title)
+      if name
+        name.from_json(env.params.json.to_json)
+        changeset = CrystalDemo::Name.changeset(name)
         if changeset.valid?
-          title = CrystalDemo::Repo.update(title)
-          title.instance.to_json
+          name = CrystalDemo::Repo.update(name)
+          name.instance.to_json
         else
           message = {
             "error" => 406,
