@@ -178,7 +178,7 @@ describe CrystalDemo::TitleApp do
           get "/titles", headers: headers
 
           kind_types = JSON.parse(response.body).map do |movie|
-            movie["kind_type"].as_h.reject("id")
+            movie["kind"].as_h.reject("id")
           end
 
           kind_types.should contain({ "name" => "episode" })
