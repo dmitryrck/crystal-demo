@@ -12,7 +12,7 @@ module CrystalDemo
       created_at_field nil
       updated_at_field nil
 
-      # Only title and kind_id are required (aka `not null`) in database too.
+      # Only title and kind_id are required (aka `not null`) in database.
       validate_required [:title, :production_year]
       validate_length :title, min: 3
     end
@@ -37,7 +37,7 @@ module CrystalDemo
     end
 
     def to_hash : Hash
-      { "id" => id, "title" => title, "kind_type" => kind_type_hash }
+      { "id" => id, "title" => title, "production_year" => production_year, "kind_type" => kind_type_hash }
     end
 
     private def kind_type_hash

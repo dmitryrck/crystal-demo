@@ -47,10 +47,6 @@ describe CrystalDemo::Title do
   end
 
   context "#to_hash" do
-    it "should always return a hash" do
-      CrystalDemo::Title.new.to_hash.is_a?(Hash).should be_true
-    end
-
     it "should include id" do
       title = CrystalDemo::Title.new
       title.id = 1
@@ -63,6 +59,13 @@ describe CrystalDemo::Title do
       title.title = "Logan"
 
       title.to_hash.delete("title").should eq "Logan"
+    end
+
+    it "should include production_year" do
+      title = CrystalDemo::Title.new
+      title.production_year = 2017
+
+      title.to_hash.delete("production_year").should eq 2017
     end
 
     it "should include kind" do
