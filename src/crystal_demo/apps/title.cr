@@ -1,11 +1,13 @@
 module CrystalDemo
   module TitleApp
     get "/titles" do |env|
-      page = if env.params.query["page"]?
-               env.params.query["page"][0].to_i - 1
-             else
-               0
+      page = if page_params = env.params.query["page"]?
+               if page_params.is_a?(String)
+                 page_params.to_i - 1
+               end
              end
+
+      page = 0 if page.is_a?(Nil)
 
       query = Crecto::Repo::Query
         .limit(10)

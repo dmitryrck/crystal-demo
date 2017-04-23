@@ -76,7 +76,7 @@ describe CrystalDemo::Title do
       title = CrystalDemo::Title.new
       title.kind_type = kind
 
-      title.to_hash.delete("kind_type").should eq({ "name" => "tv", "id" => 2 })
+      title.to_hash.delete("kind").should eq({ "name" => "tv", "id" => 2 })
     end
   end
 end

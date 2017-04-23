@@ -37,7 +37,7 @@ module CrystalDemo
     end
 
     def to_hash : Hash
-      { "id" => id, "title" => title, "production_year" => production_year, "kind_type" => kind_type_hash }
+      { "id" => id, "title" => title, "production_year" => production_year, "kind" => kind_type_hash }
     end
 
     private def kind_type_hash
