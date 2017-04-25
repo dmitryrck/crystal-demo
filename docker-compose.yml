@@ -38,7 +38,7 @@ services:
       - PORT=3001
     ports:
       - "3001:3001"
-    command: bash -c "crystal build --release -s src/crystal_demo.cr -o bin/app && ./bin/app"
+    command: ./bin/app
 
   heroku:
     build:
