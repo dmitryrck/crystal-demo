@@ -1,5 +1,5 @@
-module CrystalDemo::Utils
-  def invalid_message(changeset)
+module CrystalDemo::MessageUtils
+  def invalid(changeset)
     {
       "error" => 406,
       "message" => "Invalid",
@@ -7,14 +7,14 @@ module CrystalDemo::Utils
     }.to_json
   end
 
-  def not_found_message
+  def not_found
     {
       "error" => 404,
       "message" => "Not Found"
     }.to_json
   end
 
-  def forbidden_message
+  def forbidden
     {
       "error" => 403,
       "message" => "Forbidden"

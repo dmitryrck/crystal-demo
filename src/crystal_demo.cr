@@ -9,7 +9,7 @@ require "./crystal_demo/*"
 require "./crystal_demo/apps/*"
 
 module CrystalDemo
-  extend CrystalDemo::Utils
+  extend CrystalDemo::MessageUtils
   extend CrystalDemo::Auth
 
   before_all do |env|
@@ -18,7 +18,7 @@ module CrystalDemo
 
   before_all do |env|
     unless auth(env.request.headers)
-      halt env, status_code: 403, response: forbidden_message
+      halt env, status_code: 403, response: forbidden
     end
   end
 

@@ -1,6 +1,6 @@
 module CrystalDemo
   module TitleApp
-    extend CrystalDemo::Utils
+    extend CrystalDemo::MessageUtils
 
     get "/titles" do |env|
       page = env.params.query.fetch("page", "1").to_i - 1
@@ -23,7 +23,7 @@ module CrystalDemo
         title = CrystalDemo::Repo.insert(changeset)
         title.instance.to_json
       else
-        halt env, status_code: 406, response: invalid_message(changeset)
+        halt env, status_code: 406, response: invalid(changeset)
       end
     end
 
@@ -37,10 +37,10 @@ module CrystalDemo
           title = CrystalDemo::Repo.update(title)
           title.instance.to_json
         else
-          halt env, status_code: 406, response: invalid_message(changeset)
+          halt env, status_code: 406, response: invalid(changeset)
         end
       else
-        halt env, status_code: 404, response: not_found_message
+        halt env, status_code: 404, response: not_found
       end
     end
   end
