@@ -10,7 +10,7 @@ services:
       - '5432'
 
   test: &test
-    image: crystallang/crystal
+    image: "crystallang/crystal:0.21.1"
     volumes:
       - .:/app
     links:

@@ -1,4 +1,4 @@
-image: crystallang/crystal
+image: "crystallang/crystal:0.21.1"
 
 services:
   - postgres:latest
