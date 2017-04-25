@@ -1,13 +1,9 @@
 module CrystalDemo
   module TitleApp
-    get "/titles" do |env|
-      page = if page_params = env.params.query["page"]?
-               if page_params.is_a?(String)
-                 page_params.to_i - 1
-               end
-             end
+    extend CrystalDemo::MessageUtils
 
-      page = 0 if page.is_a?(Nil)
+    get "/titles" do |env|
+      page = env.params.query.fetch("page", "1").to_i - 1
 
       query = Crecto::Repo::Query
         .limit(10)
@@ -27,13 +23,7 @@ module CrystalDemo
         title = CrystalDemo::Repo.insert(changeset)
         title.instance.to_json
       else
-        message = {
-          "error" => 406,
-          "message" => "Invalid",
-          "errors" => changeset.errors
-        }
-
-        halt env, status_code: 406, response: message.to_json
+        halt env, status_code: 406, response: invalid(changeset)
       end
     end
 
@@ -47,18 +37,10 @@ module CrystalDemo
           title = CrystalDemo::Repo.update(title)
           title.instance.to_json
         else
-          message = {
-            "error" => 406,
-            "message" => "Invalid",
-            "errors" => changeset.errors
-          }
-
-          halt env, status_code: 406, response: message.to_json
+          halt env, status_code: 406, response: invalid(changeset)
         end
       else
-        message = { "error" => 404, "message" => "Not Found" }
-
-        halt env, status_code: 404, response: message.to_json
+        halt env, status_code: 404, response: not_found
       end
     end
   end

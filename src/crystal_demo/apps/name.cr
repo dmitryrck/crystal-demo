@@ -1,11 +1,9 @@
 module CrystalDemo
   module NameApp
+    extend CrystalDemo::MessageUtils
+
     get "/names" do |env|
-      page = if env.params.query["page"]?
-               env.params.query["page"][0].to_i - 1
-             else
-               0
-             end
+      page = env.params.query.fetch("page", "1").to_i - 1
 
       query = Crecto::Repo::Query
         .limit(10)
@@ -24,13 +22,7 @@ module CrystalDemo
         name = CrystalDemo::Repo.insert(changeset)
         name.instance.to_json
       else
-        message = {
-          "error" => 406,
-          "message" => "Invalid",
-          "errors" => changeset.errors
-        }
-
-        halt env, status_code: 406, response: message.to_json
+        halt env, status_code: 406, response: invalid(changeset)
       end
     end
 
@@ -44,18 +36,10 @@ module CrystalDemo
           name = CrystalDemo::Repo.update(name)
           name.instance.to_json
         else
-          message = {
-            "error" => 406,
-            "message" => "Invalid",
-            "errors" => changeset.errors
-          }
-
-          halt env, status_code: 406, response: message.to_json
+          halt env, status_code: 406, response: invalid(changeset)
         end
       else
-        message = { "error" => 404, "message" => "Not Found" }
-
-        halt env, status_code: 404, response: message.to_json
+        halt env, status_code: 404, response: not_found
       end
     end
   end
