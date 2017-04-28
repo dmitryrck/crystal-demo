@@ -1,10 +1,6 @@
 # CrystalDemo
 
-TODO: Write a description here
-
-## Installation
-
-TODO: Write installation instructions here
+Sample API using IMDB database.
 
 ## Database
 
@@ -47,7 +43,7 @@ And the next requests:
     Content-Type: text/html
     Content-Length: 839
 
-    [{"id":4218231,"title":"Tony Robinson and...","kind_type":{"name":"tv series","id":2}},{"id":4218230,"title":"Wonders of the Universe","kind_type":{"name":"tv series","id":2}},{"id":4218229,"title":"(1955-11-01)","kind_type":{"name":"episode","id":7}},{"id":4218228,"title":"(1954-11-01)","kind_type":{"name":"episode","id":7}},{"id":4218227,"title":"Yagyu bugeicho - Ninjitsu","kind_type":{"name":"movie","id":1}},{"id":4218226,"title":"Why Dunblane?","kind_type":{"name":"episode","id":7}},{"id":4218225,"title":"The Siege of Kontum","kind_type":{"name":"episode","id":7}},{"id":4218224,"title":"The Quiet Mutiny","kind_type":{"name":"episode","id":7}},{"id":4218223,"title":"The Man Who Stole Uganda","kind_type":{"name":"episode","id":7}},{"id":4218222,"title":"The Life and Death of Steve Biko","kind_type":{"name":"episode","id":7}}]
+    [{"id":4218231,"title":"Tony Robinson and...","kind":{"name":"tv series","id":2}},{"id":4218230,"title":"Wonders of the Universe","kind":{"name":"tv series","id":2}},{"id":4218229,"title":"(1955-11-01)","kind":{"name":"episode","id":7}},{"id":4218228,"title":"(1954-11-01)","kind":{"name":"episode","id":7}},{"id":4218227,"title":"Yagyu bugeicho - Ninjitsu","kind":{"name":"movie","id":1}},{"id":4218226,"title":"Why Dunblane?","kind":{"name":"episode","id":7}},{"id":4218225,"title":"The Siege of Kontum","kind":{"name":"episode","id":7}},{"id":4218224,"title":"The Quiet Mutiny","kind":{"name":"episode","id":7}},{"id":4218223,"title":"The Man Who Stole Uganda","kind":{"name":"episode","id":7}},{"id":4218222,"title":"The Life and Death of Steve Biko","kind":{"name":"episode","id":7}}]
 
 If you don't provide your token:
 
@@ -120,7 +116,7 @@ minimal data:
     psql (9.6.1, server 9.6.2)
     SSL connection (protocol: TLSv1.2, cipher: ECDHE-RSA-AES256-GCM-SHA384, bits: 256, compression: off)
     Type "help" for help.
-
+    
     db522kd6i30pac=> insert into name (name, md5sum) values ('John', 'cf45e7b42fbc800c61462988ad1156d2');
     INSERT 0 1
 
