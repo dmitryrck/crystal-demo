@@ -17,10 +17,9 @@ dependencies:
     github: will/crystal-pg
   crecto:
     github: fridgerator/crecto
-    version: 0.5.2
   micrate:
     github: juanedi/micrate
 
-crystal: 0.21.1
+crystal: 0.22.0
 
 license: MIT
