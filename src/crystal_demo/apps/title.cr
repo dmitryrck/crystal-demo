@@ -1,6 +1,7 @@
 module CrystalDemo
   module TitleApp
     extend CrystalDemo::MessageUtils
+    extend CrystalDemo::Utils
 
     get "/titles" do |env|
       page = env.params.query.fetch("page", "1").to_i - 1

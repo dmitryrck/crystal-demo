@@ -4,7 +4,7 @@ describe CrystalDemo::NameApp do
   context "when user is not authenticated" do
     context "when user is not authenticated" do
       it "should return forbidden error" do
-        get "/names"
+        get "/names.json"
 
         response.body.should eq %({"error":403,"message":"Forbidden"})
       end
@@ -94,7 +94,7 @@ describe CrystalDemo::NameApp do
       end
     end
 
-    context "GET /names" do
+    context "GET /names.json" do
       it "should return first page" do
         name = CrystalDemo::Name.new
         name.name = "Jane"
@@ -109,7 +109,7 @@ describe CrystalDemo::NameApp do
         CrystalDemo::Repo.insert(auth)
 
         headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
-        get "/names", headers: headers
+        get "/names.json", headers: headers
 
         JSON.parse(response.body).map { |movie| movie["name"] }.should contain("Jane")
       end
@@ -133,7 +133,7 @@ describe CrystalDemo::NameApp do
 
             headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
-            get "/names", headers: headers
+            get "/names.json", headers: headers
 
             JSON.parse(response.body).map { |movie| movie["name"] }.should eq(
               [
@@ -160,7 +160,7 @@ describe CrystalDemo::NameApp do
 
             headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
 
-            get "/names?page=1", headers: headers
+            get "/names.json?page=1", headers: headers
 
             JSON.parse(response.body).map { |movie| movie["name"] }.should eq(
               [
@@ -187,7 +187,7 @@ describe CrystalDemo::NameApp do
           end
 
           headers = HTTP::Headers{"Authorization" => "Token token:cf45e7b42fbc800c61462988ad1156d2"}
-          get "/names?page=2", headers: headers
+          get "/names.json?page=2", headers: headers
 
           JSON.parse(response.body).map { |movie| movie["name"] }.should eq(
             [

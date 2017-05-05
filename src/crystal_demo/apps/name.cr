@@ -1,8 +1,9 @@
 module CrystalDemo
   module NameApp
     extend CrystalDemo::MessageUtils
+    extend CrystalDemo::Utils
 
-    get "/names" do |env|
+    get "/names.json" do |env|
       page = env.params.query.fetch("page", "1").to_i - 1
 
       query = Crecto::Repo::Query
@@ -12,6 +13,21 @@ module CrystalDemo
 
       names = Repo.all(Name, query)
       (names.as(Array).map &.to_hash).to_json
+    end
+
+    get "/names.ndjson" do |env|
+      env.response.content_type = "application/x-ndjson"
+
+      page = env.params.query.fetch("page", "1").to_i - 1
+
+      query = Crecto::Repo::Query
+        .limit(10)
+        .offset(page * 10)
+        .order_by("id desc")
+
+      Repo.all(Name, query).each do |name|
+        write_ndjson(env.response.output, %w[id name md5sum], name)
+      end
     end
 
     post "/names" do |env|
